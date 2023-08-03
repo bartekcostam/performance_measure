@@ -8,6 +8,7 @@ class GUI:
         self.window.geometry("300x100")
         self.url = StringVar()
 
+
         Label(self.window, text="URL:").pack()
         Entry(self.window, textvariable=self.url).pack()
         Button(self.window, text="Start Test", command=self.start_test).pack()
