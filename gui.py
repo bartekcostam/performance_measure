@@ -1,30 +1,51 @@
-from tkinter import Tk, Label, Entry, Button, StringVar, IntVar, Checkbutton
+import customtkinter as ctk
+from tkinter import StringVar, IntVar
 from test import test_loading_speed
 import subprocess
 
 class GUI:
     def __init__(self, start_test):
-        self.window = Tk()
+        self.window = ctk.CTk()
         self.window.title("Loading Speed Test")
-        self.window.geometry("400x300")
+        self.window.geometry("600x400")
         self.url = StringVar()
         self.xpath = StringVar()
-        
         self.headless_mode_var = IntVar()
         self.num_iterations = IntVar(value=5)  # Default value
-        Label(self.window, text="Number of iterations:").pack()
-        Entry(self.window, textvariable=self.num_iterations).pack()
-        Label(self.window, text="XPath of the element to wait for:").pack()
-        Entry(self.window, textvariable=self.xpath).pack()
-        Label(self.window, text="URL: (starts with protocol 'http', 'https')").pack()
-        Entry(self.window, textvariable=self.url).pack()
+        self.upload_speed = StringVar()
+        self.download_speed = StringVar()
+
+        right_frame = ctk.CTkFrame(self.window)  # Create a frame to hold the right-side widgets
+        right_frame.pack(side="right")  # Pack the frame to the right side of the window
+
+        ctk.CTkLabel(right_frame, text="XPath of the element to wait for:").pack()
+        ctk.CTkEntry(right_frame, textvariable=self.xpath).pack()
+        ctk.CTkLabel(right_frame, text="URL: (starts with protocol 'http', 'https')").pack()
+        ctk.CTkEntry(right_frame, textvariable=self.url).pack()
+        ctk.CTkLabel(right_frame, text="Number of iterations:").pack()
+        ctk.CTkEntry(right_frame, textvariable=self.num_iterations).pack()  # Entry for number of iterations
 
         # Checkbox for headless mode
-        Checkbutton(self.window, text="Run in headless mode", variable=self.headless_mode_var).pack()
+        ctk.CTkCheckBox(right_frame, text="Run in headless mode", variable=self.headless_mode_var).pack()
 
-        Button(self.window, text="Start Test", command=start_test, width=20, height=2, bg="lightblue", font=("Helvetica", 12)).pack(pady=5)
-        Button(self.window, text="Show Diagram", command=self.show_diagram, width=20, height=2, bg="lightgreen", font=("Helvetica", 12)).pack(pady=5)
-        
+        ctk.CTkButton(right_frame, text="Start Test", command=start_test, width=20, height=2).pack(pady=5)
+        ctk.CTkButton(right_frame, text="Show Diagram", command=self.show_diagram, width=20, height=2).pack(pady=5)
+
+        # Left frame
+        left_frame = ctk.CTkFrame(self.window)
+        left_frame.pack(side="left")
+
+        ctk.CTkLabel(left_frame, text="Internet Speed").pack()
+        ctk.CTkCheckBox(left_frame, text="Option 1").pack()
+        ctk.CTkCheckBox(left_frame, text="Option 2").pack()
+        ctk.CTkCheckBox(left_frame, text="Option 3").pack()
+        ctk.CTkCheckBox(left_frame, text="Option 4").pack()
+        ctk.CTkLabel(left_frame, text="Upload Speed (Mbps):").pack()
+        ctk.CTkEntry(left_frame, textvariable=self.upload_speed).pack()
+        ctk.CTkLabel(left_frame, text="Download Speed (Mbps):").pack()
+        ctk.CTkEntry(left_frame, textvariable=self.download_speed).pack()
+
+
     def show_diagram(self):
         subprocess.run(["python", "diagram.py"])
 
