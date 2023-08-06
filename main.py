@@ -8,6 +8,11 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
 
+
+#Get data from prepere_env do we can use binary's
+print("Before setting up environment")
+chrome_path, driver_path = setup_environment()
+print("After setting up environment")
 def start_test():
     # Implement your test logic here
     url = gui.url.get()  # Get the URL from the GUI entry field
@@ -32,13 +37,13 @@ def start_test():
 def test_loading_speed(url, xpath,headless_mode):
     # Set up the environment and get the path to the WebDriver
     chrome_options = webdriver.ChromeOptions()
-    chrome_options.binary_location = "./chrome_browser/win/browser/Chrome.exe"
+    chrome_options.binary_location = chrome_path
     chrome_options.add_argument("--incognito")
     
     if headless_mode:
         chrome_options.add_argument("--headless")
     # Use Selenium to test the loading speed
-    driver = webdriver.Chrome("./chrome_browser/win/driver/chromedriver.exe", options=chrome_options)
+    driver = webdriver.Chrome(driver_path, options=chrome_options)
     start_time = time.time()
 
     driver.get(str(url))
@@ -58,6 +63,10 @@ def test_loading_speed(url, xpath,headless_mode):
 
     return loading_time, element_time
 
+try:
+    gui = GUI(start_test)
+    gui.run()
 
-gui = GUI(start_test)
-gui.run()
+except Exception as e:
+    print(e)
+    input("Press Enter to exit...")
