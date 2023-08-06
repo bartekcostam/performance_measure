@@ -3,6 +3,8 @@ import zipfile
 import os
 import urllib.request
 
+print(platform.system())
+
 def setup_environment():
     # Detect the operating system
     os_name = platform.system()
@@ -12,8 +14,8 @@ def setup_environment():
         chrome_url = "https://download_link_for_portable_chrome_for_windows"
         driver_url = "https://chromedriver.storage.googleapis.com/version/chromedriver_win32.zip"
     elif os_name == "Linux":
-        chrome_url = "https://download_link_for_portable_chrome_for_linux"
-        driver_url = "https://chromedriver.storage.googleapis.com/version/chromedriver_linux64.zip"
+        chrome_url = "https://edgedl.me.gvt1.com/edgedl/chrome/chrome-for-testing/115.0.5790.170/linux64/chrome-linux64.zip"
+        driver_url = "https://edgedl.me.gvt1.com/edgedl/chrome/chrome-for-testing/115.0.5790.170/linux64/chromedriver-linux64.zip"
     else:
         raise Exception("Unsupported operating system")
 
