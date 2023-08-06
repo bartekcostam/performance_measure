@@ -1,4 +1,5 @@
 from gui import GUI
+import settings
 from prepare_env import setup_environment
 from selenium import webdriver
 import time
@@ -27,7 +28,8 @@ def start_test():
     num_iterations = gui.get_num_iterations()
     results = []
     for i in range(num_iterations):
-        print(f"Running iteration {i + 1}")
+        settings.message = f"Running iteration {i + 1}"
+        settings.cur_iteration = i + 1
         loading_time, element_time = test_loading_speed(url, xpath,headless_mode)
         results.append((i + 1, loading_time, element_time))
 
@@ -37,7 +39,7 @@ def start_test():
         writer.writerow(['Iteration', 'Loading Time (seconds)', 'Element Time (seconds)'])  # Write the header row
         writer.writerows(results)  # Write the results
 
-    print("Test complete. Results saved to results.csv.")
+    settings.message = "Test complete. Results saved to results.csv."
 
 def test_loading_speed(url, xpath, headless_mode):
     # Set up the environment and get the path to the WebDriver

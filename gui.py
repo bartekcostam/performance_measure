@@ -1,4 +1,5 @@
 import customtkinter as ctk
+import settings
 from tkinter import StringVar, IntVar
 from test import test_loading_speed
 import subprocess
@@ -44,6 +45,9 @@ class GUI:
         ctk.CTkEntry(left_frame, textvariable=self.upload_speed).pack()
         ctk.CTkLabel(left_frame, text="Download Speed (Mbps):").pack()
         ctk.CTkEntry(left_frame, textvariable=self.download_speed).pack()
+
+        #Progress bar
+        print(settings.cur_iteration)
 
 
     def show_diagram(self):
