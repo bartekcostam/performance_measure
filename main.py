@@ -43,7 +43,7 @@ def test_loading_speed(url, xpath,headless_mode):
     if headless_mode:
         chrome_options.add_argument("--headless")
     # Use Selenium to test the loading speed
-    driver = webdriver.Chrome(driver_path, options=chrome_options)
+    driver = webdriver.Chrome(executable_path=driver_path, options=chrome_options)
     start_time = time.time()
 
     driver.get(str(url))
