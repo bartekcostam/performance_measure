@@ -47,7 +47,7 @@ class GUI:
 
 
     def show_diagram(self):
-        subprocess.run(["python", "diagram.py"])
+        subprocess.run(["python3", "diagram.py"])
 
     def run(self):
         self.window.mainloop()

@@ -14,7 +14,8 @@ from selenium.webdriver.chrome.service import Service
 print("Before setting up environment")
 chrome_path, driver_path = setup_environment()
 print("After setting up environment")
-
+print(chrome_path)
+print(driver_path)
 
 
 def start_test():
