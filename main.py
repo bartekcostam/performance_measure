@@ -7,12 +7,16 @@ from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
+from selenium.webdriver.chrome.service import Service
 
 
 #Get data from prepere_env do we can use binary's
 print("Before setting up environment")
 chrome_path, driver_path = setup_environment()
 print("After setting up environment")
+
+
+
 def start_test():
     # Implement your test logic here
     url = gui.url.get()  # Get the URL from the GUI entry field
@@ -34,20 +38,22 @@ def start_test():
 
     print("Test complete. Results saved to results.csv.")
 
-def test_loading_speed(url, xpath,headless_mode):
+def test_loading_speed(url, xpath, headless_mode):
     # Set up the environment and get the path to the WebDriver
     chrome_options = webdriver.ChromeOptions()
     chrome_options.binary_location = chrome_path
     chrome_options.add_argument("--incognito")
+    chrome_options.add_argument("--no-sandbox")
+    chrome_options.add_argument("--disable-dev-shm-usage")
     
     if headless_mode:
         chrome_options.add_argument("--headless")
-    # Use Selenium to test the loading speed
-    driver = webdriver.Chrome(executable_path=driver_path, options=chrome_options)
+
+    service = Service(driver_path)
+    driver = webdriver.Chrome(service=service, options=chrome_options)
+
     start_time = time.time()
-
     driver.get(str(url))
-
     end_time = time.time()
     loading_time = end_time - start_time
 
@@ -62,6 +68,8 @@ def test_loading_speed(url, xpath,headless_mode):
     driver.quit()
 
     return loading_time, element_time
+
+
 
 try:
     gui = GUI(start_test)
