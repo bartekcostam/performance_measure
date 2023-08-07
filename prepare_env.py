@@ -2,6 +2,8 @@ import platform
 import zipfile
 import os
 import urllib.request
+import io
+import progressbar
 
 def is_valid_zip(zip_path):
     """Check if the file is a valid zip file."""
@@ -13,7 +15,22 @@ def is_valid_zip(zip_path):
 
 def download_file(url, path):
     try:
-        urllib.request.urlretrieve(url, path)
+        def show_progress(block_num, block_size, total_size):
+            global pbar
+            pbar = None
+            if pbar is None:
+                pbar = progressbar.ProgressBar(maxval=total_size)
+                pbar.start()
+
+            downloaded = block_num * block_size
+            if downloaded < total_size:
+                pbar.update(downloaded)
+            else:
+                pbar.finish()
+                pbar = None
+
+        urllib.request.urlretrieve(url, path, show_progress)
+
         return True
     except Exception as e:
         print(f"Error downloading from {url}. Error: {e}")
