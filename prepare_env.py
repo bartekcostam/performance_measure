@@ -4,6 +4,7 @@ import os
 import urllib.request
 import io
 import progressbar
+from messagebox import messageBox
 
 def is_valid_zip(zip_path):
     """Check if the file is a valid zip file."""
@@ -12,9 +13,14 @@ def is_valid_zip(zip_path):
             return True
     except zipfile.BadZipFile:
         return False
+    
+def openMessageBox():
+    messagebox = messageBox()
+    messagebox.run()
 
 def download_file(url, path):
     try:
+        openMessageBox()
         def show_progress(block_num, block_size, total_size):
             global pbar
             pbar = None
