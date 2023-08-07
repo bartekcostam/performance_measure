@@ -9,7 +9,7 @@ class GUI:
     def __init__(self, start_test):
         self.window = ctk.CTk()
         self.window.title("Loading Speed Test")
-        self.window.geometry("600x800")
+        self.window.geometry("600x600")
         self.url = StringVar()
         self.xpath = StringVar()
         self.headless_mode_var = IntVar()
@@ -17,13 +17,7 @@ class GUI:
         self.upload_speed = StringVar()
         self.download_speed = StringVar()
 
-        # Create a CTkTabview
-        self.tabview = ctk.CTkTabview(self.window)
-        self.tabview.pack(padx=20, pady=20)
-
-        # Add tabs
-        tab1 = self.tabview.add("Tab 1")
-        tab2 = self.tabview.add("Tab 2")
+        
 
         right_frame = ctk.CTkFrame(self.window)  # Create a frame to hold the right-side widgets
         right_frame.pack(side="right")  # Pack the frame to the right side of the window
@@ -57,6 +51,14 @@ class GUI:
         ctk.CTkLabel(left_frame, text="Latancy (ms):").pack()
         ctk.CTkEntry(left_frame, textvariable=self.download_speed).pack()
 
+
+        # Create a CTkTabview
+        self.tabview = ctk.CTkTabview(self.window)
+        self.tabview.pack(padx=20, pady=20)
+
+        # Add tabs
+        tab1 = self.tabview.add("Tab 1")
+        tab2 = self.tabview.add("Tab 2")
         #Bottom frame
         bot_frame =  ctk.CTkFrame(self.window)
         bot_frame.pack(side="bottom")
