@@ -1,3 +1,4 @@
 .vscode
 chrome_browser
 env
+__pycache__

@@ -20,16 +20,23 @@ print(driver_path)
 
 
 def start_test():
-    # Implement your test logic here
-    url = gui.url.get()  # Get the URL from the GUI entry field
-    xpath = gui.xpath.get()  # Get the XPath from the GUI entry field
+    testing = True #False - normal, True - Settings for testing so you dont need to type xpath and url manually 
+    if testing:
+        url = "https://chromedriver.chromium.org/downloads/version-selection" #default value for testing
+        xpath = '//*[@id="WDxLfe"]/ul/li[2]/div[1]/div/a' #default value for testing
+    else:
+        # Implement your test logic here
+        url = gui.url.get()  # Get the URL from the GUI entry field
+        xpath = gui.xpath.get()  # Get the XPath from the GUI entry field
     headless_mode = gui.is_headless_mode()
     print(f"Starting test for URL: {url}")
     num_iterations = gui.get_num_iterations()
     results = []
+    gui.set_progressbar(0)
     for i in range(num_iterations):
         settings.message = f"Running iteration {i + 1}"
         settings.cur_iteration = i + 1
+        gui.set_progressbar(settings.cur_iteration/num_iterations)
         loading_time, element_time = test_loading_speed(url, xpath,headless_mode)
         results.append((i + 1, loading_time, element_time))
 
