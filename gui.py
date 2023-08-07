@@ -46,9 +46,19 @@ class GUI:
         ctk.CTkLabel(left_frame, text="Download Speed (Mbps):").pack()
         ctk.CTkEntry(left_frame, textvariable=self.download_speed).pack()
 
-        #Progress bar
-        print(settings.cur_iteration)
+        #Bottom frame
+        bot_frame =  ctk.CTkFrame(self.window)
+        bot_frame.pack(side="bottom")
 
+        #Progress bar
+        global progressbar
+        self.progressbar = ctk.CTkProgressBar(master=bot_frame, mode="determinate")
+        self.progressbar.pack(padx=20, pady=10)
+
+
+    def set_progressbar(self, value):
+        print(value)
+        self.progressbar.set(value)
 
     def show_diagram(self):
         subprocess.run(["python3", "diagram.py"])
