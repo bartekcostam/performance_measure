@@ -20,7 +20,7 @@ print(driver_path)
 
 
 def start_test():
-    testing = True #False - normal, True - Settings for testing so you dont need to type xpath and url manually 
+    testing = False #False - normal, True - Settings for testing so you dont need to type xpath and url manually 
     if testing:
         url = "https://chromedriver.chromium.org/downloads/version-selection" #default value for testing
         xpath = '//*[@id="WDxLfe"]/ul/li[2]/div[1]/div/a' #default value for testing
