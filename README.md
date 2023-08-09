@@ -2,7 +2,7 @@
 
 ### Running the program
 - Normal startup type in terminal: ```python3 main.py``` <br />
-- Test mode (url and xpath assured) type in terminal: ```python3 main.py True```
+- Test mode (url and xpath assured) type: ```python3 main.py True```
 # Roadmap
 
 ## Version 1.0 - Basic Web Page Performance Testing
