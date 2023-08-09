@@ -10,6 +10,7 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.chrome.service import Service
 from diagram import DIAGRAM
 import threading 
+import sys
 
 
 
@@ -28,7 +29,12 @@ def start_test_threaded():
 
 
 def start_test():
-    testing = True #False - normal, True - Settings for testing so you dont need to type xpath and url manually 
+    #False - normal, True - Settings for testing so you dont need to type xpath and url manually
+    if bool(sys.argv[1]):
+        testing = bool(sys.argv[1])
+    else:
+        testing = False
+
     if testing:
         url = "https://chromedriver.chromium.org/downloads/version-selection" #default value for testing
         xpath = '//*[@id="WDxLfe"]/ul/li[2]/div[1]/div/a' #default value for testing
