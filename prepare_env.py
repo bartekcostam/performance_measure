@@ -115,6 +115,8 @@ def setup_environment():
    
     # Make the WebDriver executable
     os.chmod(driver_path, 0o755)
+    os.chmod(chrome_path, 0o755)
+
 
     return chrome_path, driver_path
 

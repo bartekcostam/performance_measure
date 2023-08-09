@@ -10,6 +10,9 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
 from selenium.webdriver.chrome.service import Service
 from diagram import DIAGRAM
+import threading 
+
+
 
 
 #Get data from prepere_env do we can use binary's
@@ -18,6 +21,11 @@ chrome_path, driver_path = setup_environment()
 print("After setting up environment")
 print(chrome_path)
 print(driver_path)
+
+
+def start_test_threaded():
+    thread = threading.Thread(target=start_test)
+    thread.start()
 
 
 def start_test():
@@ -87,7 +95,7 @@ def test_loading_speed(url, xpath, headless_mode):
 
 
 try:
-    gui = GUI(start_test, show_diagram)
+    gui = GUI(start_test_threaded, show_diagram)
     gui.run()
 
 except Exception as e:
