@@ -9,6 +9,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
 from selenium.webdriver.chrome.service import Service
+from diagram import DIAGRAM
 
 
 #Get data from prepere_env do we can use binary's
@@ -48,6 +49,10 @@ def start_test():
 
     settings.message = "Test complete. Results saved to results.csv."
 
+def show_diagram():
+    diagram = DIAGRAM()
+    diagram.run()
+
 def test_loading_speed(url, xpath, headless_mode):
     # Set up the environment and get the path to the WebDriver
     chrome_options = webdriver.ChromeOptions()
@@ -82,7 +87,7 @@ def test_loading_speed(url, xpath, headless_mode):
 
 
 try:
-    gui = GUI(start_test)
+    gui = GUI(start_test, show_diagram)
     gui.run()
 
 except Exception as e:

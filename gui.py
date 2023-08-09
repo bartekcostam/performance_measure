@@ -6,7 +6,7 @@ import subprocess
 from customtkinter import CTkTabview
 
 class GUI:
-    def __init__(self, start_test):
+    def __init__(self, start_test, show_diagram):
         self.window = ctk.CTk()
         self.window.title("Loading Speed Test")
         self.window.geometry("600x600")
@@ -33,7 +33,7 @@ class GUI:
         ctk.CTkCheckBox(right_frame, text="Run in headless mode", variable=self.headless_mode_var).pack()
 
         ctk.CTkButton(right_frame, text="Start Test", command=start_test, width=20, height=2).pack(pady=5)
-        ctk.CTkButton(right_frame, text="Show Diagram", command=self.show_diagram, width=20, height=2).pack(pady=5)
+        ctk.CTkButton(right_frame, text="Show Diagram", command=show_diagram, width=20, height=2).pack(pady=5)
 
         # Left frame
         left_frame = ctk.CTkFrame(self.window)
@@ -74,9 +74,6 @@ class GUI:
     def set_progressbar(self, value):
         print(value)
         self.progressbar.set(value)
-
-    def show_diagram(self):
-        subprocess.run(["python3", "diagram.py"])
 
     def run(self):
         self.window.mainloop()
