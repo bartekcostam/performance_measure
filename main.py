@@ -13,15 +13,12 @@ import threading
 import sys
 
 
-
-
 #Get data from prepere_env do we can use binary's
 print("Before setting up environment")
 chrome_path, driver_path = setup_environment()
 print("After setting up environment")
 print(chrome_path)
 print(driver_path)
-
 
 def start_test_threaded():
     thread = threading.Thread(target=start_test)
@@ -30,8 +27,8 @@ def start_test_threaded():
 
 def start_test():
     #False - normal, True - Settings for testing so you dont need to type xpath and url manually
-    if bool(sys.argv[1]):
-        testing = bool(sys.argv[1])
+    if sys.argv[1] == 'testing':
+        testing = True
     else:
         testing = False
 
@@ -39,7 +36,6 @@ def start_test():
         url = "https://chromedriver.chromium.org/downloads/version-selection" #default value for testing
         xpath = '//*[@id="WDxLfe"]/ul/li[2]/div[1]/div/a' #default value for testing
     else:
-        # Implement your test logic here
         url = gui.url.get()  # Get the URL from the GUI entry field
         xpath = gui.xpath.get()  # Get the XPath from the GUI entry field
     headless_mode = gui.is_headless_mode()
