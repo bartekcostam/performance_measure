@@ -6,6 +6,16 @@ import io
 import progressbar
 from messagebox import messageBox
 
+
+def set_permissions_recursively(path):
+    """Set 755 permissions recursively."""
+    for root, dirs, files in os.walk(path):
+        for dir_ in dirs:
+            os.chmod(os.path.join(root, dir_), 0o755)
+        for file_ in files:
+            os.chmod(os.path.join(root, file_), 0o755)
+
+
 def is_valid_zip(zip_path):
     """Check if the file is a valid zip file."""
     try:
@@ -116,6 +126,8 @@ def setup_environment():
     # Make the WebDriver executable
     os.chmod(driver_path, 0o755)
     os.chmod(chrome_path, 0o755)
+    if platform.system() == "Linux":
+        set_permissions_recursively(os.path.join(chrome_extract_path, chrome_extract_folder))
 
 
     return chrome_path, driver_path
