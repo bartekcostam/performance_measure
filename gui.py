@@ -1,5 +1,4 @@
 import customtkinter as ctk
-import settings
 from tkinter import StringVar, IntVar
 from test import test_loading_speed
 import subprocess
@@ -59,20 +58,27 @@ class GUI:
         # Add tabs
         tab1 = self.tabview.add("Tab 1")
         tab2 = self.tabview.add("Tab 2")
+
         #Bottom frame
-        bot_frame =  ctk.CTkFrame(self.window)
+        bot_frame =  ctk.CTkFrame(self.window, width=1000, height=50)
         bot_frame.pack(side="bottom")
+
+        #Information box
+        global info_text
+        self.info_text = StringVar()
+        ctk.CTkLabel(bot_frame, textvariable=self.info_text).pack()
 
         #Progress bar
         global progressbar
-        self.progressbar = ctk.CTkProgressBar(master=bot_frame, mode="determinate")
-        self.progressbar.pack(padx=20, pady=10)
-
-
+        self.progressbar = ctk.CTkProgressBar(master=bot_frame, mode="determinate", width=1000, height=15)
+        self.progressbar.pack(padx=10, pady=10)
+        self.progressbar.set(0)
    
 
+    def set_infotext(self, text):
+        self.info_text.set(text)
+
     def set_progressbar(self, value):
-        print(value)
         self.progressbar.set(value)
 
     def run(self):

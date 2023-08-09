@@ -1,5 +1,4 @@
 from gui import GUI
-import settings
 from prepare_env import setup_environment
 from selenium import webdriver
 import time
@@ -29,7 +28,7 @@ def start_test_threaded():
 
 
 def start_test():
-    testing = False #False - normal, True - Settings for testing so you dont need to type xpath and url manually 
+    testing = True #False - normal, True - Settings for testing so you dont need to type xpath and url manually 
     if testing:
         url = "https://chromedriver.chromium.org/downloads/version-selection" #default value for testing
         xpath = '//*[@id="WDxLfe"]/ul/li[2]/div[1]/div/a' #default value for testing
@@ -40,12 +39,13 @@ def start_test():
     headless_mode = gui.is_headless_mode()
     print(f"Starting test for URL: {url}")
     num_iterations = gui.get_num_iterations()
+    cur_iteration = 0
     results = []
     gui.set_progressbar(0)
     for i in range(num_iterations):
-        settings.message = f"Running iteration {i + 1}"
-        settings.cur_iteration = i + 1
-        gui.set_progressbar(settings.cur_iteration/num_iterations)
+        gui.set_infotext(f"Running iteration {i + 1}")
+        cur_iteration += 1
+        gui.set_progressbar(cur_iteration/num_iterations)
         loading_time, element_time = test_loading_speed(url, xpath,headless_mode)
         results.append((i + 1, loading_time, element_time))
 
@@ -55,7 +55,7 @@ def start_test():
         writer.writerow(['Iteration', 'Loading Time (seconds)', 'Element Time (seconds)'])  # Write the header row
         writer.writerows(results)  # Write the results
 
-    settings.message = "Test complete. Results saved to results.csv."
+    gui.set_infotext("Test complete.\nResults saved to results.csv.")
 
 def show_diagram():
     diagram = DIAGRAM()
