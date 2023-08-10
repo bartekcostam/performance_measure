@@ -66,6 +66,7 @@ class GUI:
         #Information box
         global info_text
         self.info_text = StringVar()
+        self.info_text.set("")
         ctk.CTkLabel(bot_frame, textvariable=self.info_text).pack()
 
         #Progress bar
