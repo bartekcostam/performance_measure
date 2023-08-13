@@ -11,6 +11,7 @@ from selenium.webdriver.chrome.service import Service
 from diagram import DIAGRAM
 import threading 
 import sys
+from network_conditions import get_network_conditions
 
 
 #Get data from prepere_env do we can use binary's
@@ -27,7 +28,7 @@ def start_test_threaded():
 
 def start_test():
     #False - normal, True - Settings for testing so you dont need to type xpath and url manually
-    if sys.argv[1] == 'testing':
+    if len(sys.argv) > 1 and sys.argv[1] == 'testing':
         testing = True
     else:
         testing = False
@@ -73,10 +74,13 @@ def test_loading_speed(url, xpath, headless_mode):
     
     if headless_mode:
         chrome_options.add_argument("--headless")
-
+    selected_speed = gui.get_selected_speed()
+    conditions = get_network_conditions(selected_speed)
+    
     service = Service(driver_path)
     driver = webdriver.Chrome(service=service, options=chrome_options)
-
+    driver.set_network_conditions(**conditions)
+    print("predkosc neta to:", conditions)
     start_time = time.time()
     driver.get(str(url))
     end_time = time.time()
