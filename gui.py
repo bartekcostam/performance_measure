@@ -59,28 +59,30 @@ class GUI:
         ctk.CTkLabel(left_frame, text="Latancy (ms):").pack()
         ctk.CTkEntry(left_frame, textvariable=self.download_speed).pack()
 
-        # Labels for tab2 and tab3
-        ctk.CTkLabel(tab2, text="Advanced").pack()
-        ctk.CTkLabel(tab3, text="Additional").pack()
-
-        
+        # Bottom frame for tab1
+        bot_frame = ctk.CTkFrame(tab1)
+        bot_frame.pack(side="bottom", fill="x", expand=False)
 
         # Information box
         global info_text
         self.info_text = StringVar()
         self.info_text.set("")
-        ctk.CTkLabel(tab1, textvariable=self.info_text).pack(side='bottom')
+        ctk.CTkLabel(bot_frame, textvariable=self.info_text, width=500, height=40).pack(side="bottom")
 
         # Progress bar
         global progressbar
-        self.progressbar = ctk.CTkProgressBar(master=tab1, mode="determinate", width=1000, height=10)
-        self.progressbar.pack(side="bottom" ,padx=10, pady=20)
+        self.progressbar = ctk.CTkProgressBar(master=bot_frame, mode="determinate", width=1000, height=10)
         self.progressbar.set(0)
+
+        # Labels for tab2 and tab3
+        ctk.CTkLabel(tab2, text="Advanced").pack()
+        ctk.CTkLabel(tab3, text="Additional").pack()
 
     def set_infotext(self, text):
         self.info_text.set(text)
 
     def set_progressbar(self, value):
+        self.progressbar.pack(side="bottom" ,padx=10, pady=20)
         self.progressbar.set(value)
 
     def run(self):
