@@ -1,8 +1,6 @@
 import customtkinter as ctk
 from tkinter import StringVar, IntVar
 from test import test_loading_speed
-import subprocess
-from customtkinter import CTkTabview
 
 class GUI:
     def __init__(self, start_test, show_diagram):
