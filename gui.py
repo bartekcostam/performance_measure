@@ -14,6 +14,23 @@ class GUI:
         self.upload_speed = StringVar()
         self.download_speed = StringVar()
 
+
+        #tab2 variables
+
+        self.db_address = StringVar()
+        self.db_name = StringVar()
+        self.db_user = StringVar()
+        self.db_pass = StringVar()
+        self.db_type = StringVar()
+
+
+        #tab3 variables 
+
+        self.vpn_address = StringVar()
+        self.vpn_user = StringVar()
+        self.vpn_pass = StringVar()
+        self.vpn_key = StringVar()
+
         # Create a CTkTabview
         self.tabview = ctk.CTkTabview(self.window)
         self.tabview.pack(padx=20, pady=20, fill="both", expand=True)  # Fill the window
@@ -22,6 +39,9 @@ class GUI:
         tab1 = self.tabview.add("Basic")
         tab2 = self.tabview.add("Advanced")
         tab3 = self.tabview.add("Additional")
+
+
+
 
         # Right frame in tab1
         right_frame = ctk.CTkFrame(tab1)
@@ -74,10 +94,59 @@ class GUI:
         self.progressbar = ctk.CTkProgressBar(master=bot_frame, mode="determinate", width=1000, height=10)
         self.progressbar.set(0)
 
-        # Labels for tab2 and tab3
-        ctk.CTkLabel(tab2, text="Advanced").pack()
-        ctk.CTkLabel(tab3, text="Additional").pack()
+        
+        
 
+        # Right frame in tab2
+        advanced_right_frame = ctk.CTkFrame(tab2)
+        advanced_right_frame.pack(side="right", fill="both", expand=True)
+        ctk.CTkLabel(advanced_right_frame, text="VPN - settings",font=('Ubuntu Regular', 20)).pack()
+        
+        
+        #Left frame for tab2
+
+        advanced_left_frame = ctk.CTkFrame(tab2)
+        advanced_left_frame.pack(side="left", fill="both", expand=True)
+        ctk.CTkLabel(advanced_left_frame, text="Database settings",font=('Ubuntu Regular', 20)).pack()
+        #db details
+        ctk.CTkLabel(advanced_left_frame, text="Database ip/host name:").pack()
+        ctk.CTkEntry(advanced_left_frame, textvariable=self.db_address).pack()
+
+        ctk.CTkLabel(advanced_left_frame, text="Database name:").pack()
+        ctk.CTkEntry(advanced_left_frame, textvariable=self.db_name).pack()
+
+        ctk.CTkLabel(advanced_left_frame, text="Database username:").pack()
+        ctk.CTkEntry(advanced_left_frame, textvariable=self.db_user).pack()
+
+        ctk.CTkLabel(advanced_left_frame, text="Database password:").pack()
+        ctk.CTkEntry(advanced_left_frame, textvariable=self.db_pass).pack()
+
+        
+
+        ctk.CTkLabel(advanced_left_frame, text=" Select DB type : ").pack(pady=20)
+        ctk.CTkRadioButton(advanced_left_frame, text="Oracle DB", variable=self.db_type, value="Oracle DB").pack(padx=5, pady=5)
+        ctk.CTkRadioButton(advanced_left_frame, text="MySQL", variable=self.db_type, value="MySQL").pack(padx=5, pady=5)
+        ctk.CTkRadioButton(advanced_left_frame, text="MS SQL", variable=self.db_type, value="MS SQL").pack(padx=5, pady=5)
+        ctk.CTkRadioButton(advanced_left_frame, text="Other", variable=self.db_type, value="Other").pack(padx=5, pady=5)
+
+        #Right frame for tab2
+
+        ctk.CTkLabel(advanced_right_frame, text="VPN server name").pack()
+        ctk.CTkEntry(advanced_right_frame, textvariable=self.vpn_address).pack()
+
+        ctk.CTkLabel(advanced_right_frame, text="VPN username:").pack()
+        ctk.CTkEntry(advanced_right_frame, textvariable=self.vpn_user).pack()
+
+        ctk.CTkLabel(advanced_right_frame, text="VPN password:").pack()
+        ctk.CTkEntry(advanced_right_frame, textvariable=self.vpn_pass).pack()
+
+        ctk.CTkLabel(advanced_right_frame, text="VPN key:").pack()
+        ctk.CTkEntry(advanced_right_frame, textvariable=self.vpn_key).pack()
+
+        ctk.CTkButton(advanced_right_frame, text="Load provided data", command='', width=200, height=30).pack(pady=30, padx=15)
+
+
+        ctk.CTkLabel(tab3, text="Additional").pack()
     def set_infotext(self, text):
         self.info_text.set(text)
 
