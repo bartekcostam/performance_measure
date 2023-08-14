@@ -69,7 +69,7 @@ class GUI:
         global info_text
         self.info_text = StringVar()
         self.info_text.set("")
-        ctk.CTkLabel(tab1, textvariable=self.info_text).pack()
+        ctk.CTkLabel(tab1, textvariable=self.info_text).pack(side='bottom')
 
         # Progress bar
         global progressbar
