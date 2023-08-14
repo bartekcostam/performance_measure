@@ -4,4 +4,4 @@
 - Normal startup - type in terminal: ```python3 main.py``` <br />
 - Test mode (url and xpath assured) - type: ```python3 main.py testing```
 ##
-![Screenshot from 2023-08-10 22-28-07](https://github.com/bartekcostam/performance_measure/assets/139556566/bcb210cc-37a6-406c-9d5e-bfac334acaa5)
+![Roadmap of our project](https://github.com/bartekcostam/performance_measure/assets/139556566/4c1353b4-7a54-4aac-b25a-d934d755a391)
