@@ -30,7 +30,7 @@ def openMessageBox():
 
 def download_file(url, path):
     try:
-        openMessageBox()
+        #openMessageBox()
         def show_progress(block_num, block_size, total_size):
             global pbar
             pbar = None
