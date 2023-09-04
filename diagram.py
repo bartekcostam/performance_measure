@@ -2,7 +2,7 @@ import csv
 import matplotlib.pyplot as plt
 import matplotlib
 from ing_theme_matplotlib import mpl_style
-mpl_style(dark=True)
+mpl_style(dark=False)
 matplotlib.use('TkAgg')
 
 class DIAGRAM:
