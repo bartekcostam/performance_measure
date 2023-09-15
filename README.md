@@ -34,4 +34,3 @@ When all the test are finished you can click the button to see the diagram which
 
 *Install chrome extension to transfer xpath and url from the page you currently browsing
 
-*

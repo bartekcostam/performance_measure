@@ -1,6 +1,7 @@
 import customtkinter as ctk
 from tkinter import StringVar, IntVar
 from test import test_loading_speed
+from sql_interpreter import sql_interpreter
 
 class GUI:
     def __init__(self, start_test, show_diagram):
@@ -14,7 +15,7 @@ class GUI:
         self.upload_speed = StringVar()
         self.download_speed = StringVar()
 
-
+        
         #tab2 variables
 
         self.db_address = StringVar()
@@ -24,12 +25,13 @@ class GUI:
         self.db_type = StringVar()
 
 
-        #tab3 variables 
+        #tab2 variables 
 
         self.vpn_address = StringVar()
         self.vpn_user = StringVar()
         self.vpn_pass = StringVar()
         self.vpn_key = StringVar()
+        
 
         # Create a CTkTabview
         self.tabview = ctk.CTkTabview(self.window)
@@ -144,9 +146,13 @@ class GUI:
         ctk.CTkEntry(advanced_right_frame, textvariable=self.vpn_key).pack()
 
         ctk.CTkButton(advanced_right_frame, text="Load provided data", command='', width=200, height=30).pack(pady=30, padx=15)
-
-
+        ctk.CTkButton(advanced_right_frame, text="SQL Interpreter", command=sql_interpreter, width=200, height=30).pack(pady=30, padx=15)
+        # Tab 3 - Additional
         ctk.CTkLabel(tab3, text="Additional").pack()
+
+        
+
+
     def set_infotext(self, text):
         self.info_text.set(text)
 
@@ -177,3 +183,5 @@ class GUI:
             download_speed = self.download_speed.get()
         # Return these values to set the network conditions
         return upload_speed, download_speed
+    
+

@@ -82,6 +82,9 @@ def test_loading_speed(url, xpath, headless_mode):
     print("predkosc neta to:", conditions)
     start_time = time.time()
     driver.get(str(url))
+    # I need to add ability to select element and provide username and password to login as optional arguments
+    # driver.find_element_by_xpath(xpath).click()
+    
     end_time = time.time()
     loading_time = end_time - start_time
 
