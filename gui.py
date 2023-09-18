@@ -1,10 +1,10 @@
 import customtkinter as ctk
-from tkinter import StringVar, IntVar
+from tkinter import StringVar, IntVar, Toplevel, Label,Text,font,Scrollbar,Button
 from test import test_loading_speed
 from sql_interpreter import sql_interpreter
 
 class GUI:
-    def __init__(self, start_test, show_diagram,additional_steps):
+    def __init__(self, start_test, show_diagram):
         self.window = ctk.CTk()
         self.window.title("Loading Speed Test")
         self.window.geometry("800x600")
@@ -14,6 +14,8 @@ class GUI:
         self.num_iterations = IntVar(value=5)  # Default value
         self.upload_speed = StringVar()
         self.download_speed = StringVar()
+        self.custom_code = ""
+        
 
         
         #tab2 variables
@@ -59,7 +61,7 @@ class GUI:
 
         # Checkbox for headless mode
         ctk.CTkCheckBox(right_frame, text="Run in headless mode", variable=self.headless_mode_var).pack(pady=20)
-        ctk.CTkButton(right_frame, text="Additional Steps", command=additional_steps, width=200, height=30).pack(pady=0, padx=15)
+        ctk.CTkButton(right_frame, text="Additional Steps", command=self.open_code_input_window, width=200, height=30).pack(pady=20, padx=15)
         ctk.CTkButton(right_frame, text="Start Test", command=start_test, width=200, height=30).pack(pady=0, padx=15)
         ctk.CTkButton(right_frame, text="Show Diagram", command=show_diagram, width=200, height=30).pack(pady=20,padx=15)
 
@@ -170,9 +172,62 @@ class GUI:
         # Call function from main.py to start the test
         test_loading_speed(self.url.get())
 
-    def additional_steps(self):
-        # Call function from main.py to start the test
-        print("additional steps selected")
+    
+
+    def open_code_input_window(self):
+        print("Additional Steps button clicked.")
+        code_window = Toplevel(self.window)
+        code_window.title("Enter Python Code")
+        
+        # Set dark theme for the window
+        code_window.configure(bg='black')
+        
+        # Replace ctk.CTkEntry with standard Tkinter Text for multi-line input
+        code_text = Text(code_window, width=60, height=20, bg='black', fg='white', font=("Arial", 20),insertbackground='yellow', selectbackground='red')
+        code_text.pack(side="left", fill="both", expand=True)
+        
+        # Add a scrollbar
+        scrollbar = Scrollbar(code_window, command=code_text.yview)
+        scrollbar.pack(side="right", fill="y")
+        
+        code_text.config(yscrollcommand=scrollbar.set)
+        
+        # Save button
+        ctk.CTkButton(code_window, text="Save and Close", command=lambda: self.save_and_close(code_text, code_window)).pack(side="bottom")
+        
+        
+        # Create a font
+        hint_font = font.nametofont("TkDefaultFont").copy()
+        hint_font.actual()
+        hint_font.config(size=14)
+
+        # Add hints
+        hint_label = Label(code_window, text="Hints:", font=hint_font, bg='black', fg='white')
+        hint_label.pack()
+
+        hints = [
+            "To find an element by ID: driver.find_element_by_id('element_id')",
+            "To find an element by XPath: driver.find_element_by_xpath('//tag[@attribute=\"value\"]')",
+            "To add sleep: time.sleep(seconds)",
+            "To click an element: element.click()",
+            "To find an element by class: driver.find_element_by_class_name('class_name')",
+            "To find an element by CSS selector: driver.find_element_by_css_selector('css_selector')"
+        ]
+
+        hint_text = Text(code_window, height=10, width=50, wrap="word", font=hint_font, bg='black', fg='white')
+        hint_text.pack()
+        hint_text.insert("1.0", "\n".join(hints))
+        hint_text.config(state="disabled")  # Make it read-only
+
+        code_window.lift()
+
+
+# Add this method in the GUI class to save the code
+    def save_and_close(self, code_text, code_window):
+        code = code_text.get("1.0", "end-1c")  # Get text from Text widget
+        print(f"Saved code: {code}")  # Corrected this line
+        self.custom_code = code
+        code_window.destroy()  # Close the window
     def get_num_iterations(self):
         return self.num_iterations.get()
 

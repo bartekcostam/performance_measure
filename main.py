@@ -26,6 +26,7 @@ def start_test_threaded():
 
 
 def start_test():
+    custom_code = gui.custom_code
     #False - normal, True - Settings for testing so you dont need to type xpath and url manually
     if len(sys.argv) > 1 and sys.argv[1] == 'testing':
         testing = True
@@ -48,7 +49,8 @@ def start_test():
         gui.set_infotext(f"Running iteration {i + 1}")
         cur_iteration += 1
         gui.set_progressbar(cur_iteration/num_iterations)
-        loading_time, element_time = test_loading_speed(url, xpath,headless_mode)
+        
+        loading_time, element_time = test_loading_speed(url, xpath,headless_mode,custom_code)
         results.append((i + 1, loading_time, element_time))
 
     # Save the results to a CSV file
@@ -63,7 +65,7 @@ def show_diagram():
     diagram = DIAGRAM()
     diagram.run()
 
-def test_loading_speed(url, xpath, headless_mode):
+def test_loading_speed(url, xpath, headless_mode,custom_code=None):
     # Set up the environment and get the path to the WebDriver
     chrome_options = webdriver.ChromeOptions()
     chrome_options.binary_location = chrome_path
@@ -82,12 +84,11 @@ def test_loading_speed(url, xpath, headless_mode):
     print("predkosc neta to:", conditions)
     start_time = time.time()
     driver.get(str(url))
-    # I need to add ability to select element and provide username and password to login as optional arguments
-    time.sleep(5)
-    element = driver.find_element_by_xpath('//*[@id="identifierInput"]')
-    element.send_keys("wydmuchb")
-    driver.find_element_by_xpath('//*[@id="submitBtn"]').click()
-    time.sleep(5)
+    if custom_code:
+        try:
+            exec(custom_code)
+        except Exception as e:
+            print(f"An error occurred while executing custom code: {e}")
     end_time = time.time()
     loading_time = end_time - start_time
 
@@ -106,7 +107,7 @@ def test_loading_speed(url, xpath, headless_mode):
 
 
 try:
-    gui = GUI(start_test_threaded, show_diagram,additional_steps)
+    gui = GUI(start_test_threaded, show_diagram)
     gui.run()
 
 except Exception as e:
