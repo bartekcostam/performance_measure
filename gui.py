@@ -4,7 +4,7 @@ from test import test_loading_speed
 from sql_interpreter import sql_interpreter
 
 class GUI:
-    def __init__(self, start_test, show_diagram):
+    def __init__(self, start_test, show_diagram,additional_steps):
         self.window = ctk.CTk()
         self.window.title("Loading Speed Test")
         self.window.geometry("800x600")
@@ -59,7 +59,7 @@ class GUI:
 
         # Checkbox for headless mode
         ctk.CTkCheckBox(right_frame, text="Run in headless mode", variable=self.headless_mode_var).pack(pady=20)
-
+        ctk.CTkButton(right_frame, text="Additional Steps", command=additional_steps, width=200, height=30).pack(pady=0, padx=15)
         ctk.CTkButton(right_frame, text="Start Test", command=start_test, width=200, height=30).pack(pady=0, padx=15)
         ctk.CTkButton(right_frame, text="Show Diagram", command=show_diagram, width=200, height=30).pack(pady=20,padx=15)
 
@@ -170,6 +170,9 @@ class GUI:
         # Call function from main.py to start the test
         test_loading_speed(self.url.get())
 
+    def additional_steps(self):
+        # Call function from main.py to start the test
+        print("additional steps selected")
     def get_num_iterations(self):
         return self.num_iterations.get()
 

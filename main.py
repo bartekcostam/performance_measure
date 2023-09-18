@@ -83,8 +83,11 @@ def test_loading_speed(url, xpath, headless_mode):
     start_time = time.time()
     driver.get(str(url))
     # I need to add ability to select element and provide username and password to login as optional arguments
-    # driver.find_element_by_xpath(xpath).click()
-    
+    time.sleep(5)
+    element = driver.find_element_by_xpath('//*[@id="identifierInput"]')
+    element.send_keys("wydmuchb")
+    driver.find_element_by_xpath('//*[@id="submitBtn"]').click()
+    time.sleep(5)
     end_time = time.time()
     loading_time = end_time - start_time
 
@@ -103,7 +106,7 @@ def test_loading_speed(url, xpath, headless_mode):
 
 
 try:
-    gui = GUI(start_test_threaded, show_diagram)
+    gui = GUI(start_test_threaded, show_diagram,additional_steps)
     gui.run()
 
 except Exception as e:
